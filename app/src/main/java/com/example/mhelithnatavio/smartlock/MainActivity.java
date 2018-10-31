@@ -39,7 +39,6 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
-                // had to change the url using myjson to fit the format
                 new JSONTask().execute("https://api.myjson.com/bins/8agmq");
             }
         });
