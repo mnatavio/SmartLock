@@ -9,6 +9,10 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -20,31 +24,39 @@ import java.net.URL;
 public class MainActivity extends AppCompatActivity {
 
     private TextView tvStatus;
+    private String id;
+    private String status;
+    private int v;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
 
-
-
-
-//        final ToggleButton lock = (ToggleButton) findViewById(R.id.lockUnLtoggle);
         final TextView logOut = (TextView) findViewById(R.id.tvLogout);
-        Button btnHit = (Button) findViewById(R.id.btnHit);
+        final Button btnHit = (Button) findViewById(R.id.btnHit);
         tvStatus = (TextView) findViewById(R.id.etStatus);
 
-        btnHit.setOnClickListener(new View.OnClickListener(){
+        new JSONTask().execute("https://sdsmartlock.com/api/locks");
 
+        btnHit.setOnClickListener(new View.OnClickListener()
+        {
             @Override
-            public void onClick(View v) {
-                new JSONTask().execute("https://api.myjson.com/bins/8agmq");
+            public void onClick(View v)
+            {
+                if(status == "false")
+                   btnHit.setText("LOCK");
+                else
+                    btnHit.setText("UNLOCK");
             }
         });
 
 
-        logOut.setOnClickListener(new View.OnClickListener() {
+
+        logOut.setOnClickListener(new View.OnClickListener()
+        {
             @Override
             public void onClick(View v) {
                 Intent logoutIntent = new Intent(MainActivity.this, LogInActivity.class);
@@ -57,13 +69,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-
-
     public class JSONTask extends AsyncTask<String, String, String>
     {
-
         @Override
-        protected String doInBackground(String... params) {
+        protected String doInBackground(String... params)
+        {
             HttpURLConnection connection = null;
             BufferedReader reader = null;
             try
@@ -79,18 +89,31 @@ public class MainActivity extends AppCompatActivity {
                 StringBuffer buffer = new StringBuffer();
 
                 String line = "";
-                while ((line = reader.readLine()) != null){
+                while ((line = reader.readLine()) != null)
+                {
                     buffer.append(line);
-
                 }
-                return buffer.toString();
+
+                String finalJson = buffer.toString();
+                JSONArray jarray = new JSONArray(finalJson);
+
+                JSONObject object = jarray.getJSONObject(0);
+
+                id = object.getString("_id");
+                status = object.getString("status");
+                v = object.getInt("__v");
+
+
+                return status;
 
             } catch (MalformedURLException e)
             {
                 e.printStackTrace();
             } catch (IOException e) {
                 e.printStackTrace();
-            }finally
+            } catch (JSONException e) {
+                e.printStackTrace();
+            } finally
             {
                 if(connection != null)
                 {
@@ -113,14 +136,10 @@ public class MainActivity extends AppCompatActivity {
         protected  void onPostExecute(String result)
         {
             super.onPostExecute(result);
-            tvStatus.setText(result);
+            if(result == "false")
+                tvStatus.setText("Status: UNLOCK");
+            else
+                tvStatus.setText("Status: LOCK");
         }
     }
-
-
-
-
-
-
-
 }

@@ -18,6 +18,11 @@ import android.widget.TextView;
 
 public class LogInActivity extends AppCompatActivity
 {
+    EditText etUsername = (EditText) findViewById(R.id.etUsername);
+    EditText etPassword = (EditText) findViewById(R.id.etPassword);
+    CheckBox chShow = (CheckBox) findViewById(R.id.chShow);
+    Button bLogin = (Button) findViewById(R.id.bLogin);
+    TextView registerLink = (TextView) findViewById(R.id.tvRegister);
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -25,11 +30,11 @@ public class LogInActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_log_in);
 
-        final EditText etUsername = (EditText) findViewById(R.id.etUsername);
-        final EditText etPassword = (EditText) findViewById(R.id.etPassword);
-        final CheckBox chShow = (CheckBox) findViewById(R.id.chShow);
-        final Button bLogin = (Button) findViewById(R.id.bLogin);
-        final TextView registerLink = (TextView) findViewById(R.id.tvRegister);
+//        final EditText etUsername = (EditText) findViewById(R.id.etUsername);
+//        final EditText etPassword = (EditText) findViewById(R.id.etPassword);
+//        final CheckBox chShow = (CheckBox) findViewById(R.id.chShow);
+//        final Button bLogin = (Button) findViewById(R.id.bLogin);
+//        final TextView registerLink = (TextView) findViewById(R.id.tvRegister);
 
 
         // register link goes to register page
