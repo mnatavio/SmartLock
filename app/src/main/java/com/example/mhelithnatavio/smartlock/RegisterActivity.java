@@ -1,5 +1,6 @@
 package com.example.mhelithnatavio.smartlock;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.method.HideReturnsTransformationMethod;
@@ -11,32 +12,28 @@ import android.widget.EditText;
 
 public class RegisterActivity extends AppCompatActivity {
 
+    private EditText etname = (EditText) findViewById(R.id.name);
+    private EditText etUsername = (EditText) findViewById(R.id.etUsername);
+    private EditText etPassword = (EditText) findViewById(R.id.etPassword);
+    private EditText etLock = (EditText) findViewById(R.id.etLock);
+    private Button bRegister = (Button) findViewById(R.id.bRegister);
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
-
-        final EditText etFname = (EditText) findViewById(R.id.etFname);
-        final EditText etLname = (EditText) findViewById(R.id.etLname);
-        final EditText etUsername = (EditText) findViewById(R.id.etUsername);
-        final EditText etPassword = (EditText) findViewById(R.id.etPassword);
-        final EditText etLock = (EditText) findViewById(R.id.etLock);
-
-        final Button bRegister = (Button) findViewById(R.id.bRegister);
 
         etPassword.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
 
         bRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                final String fname = etFname.getText().toString();
-                final String lname = etLname.getText().toString();
-                final String username = etUsername.getText().toString();
-                final String password = etPassword.getText().toString();
-                final String lock = etLock.getText().toString();
+
 
             }
         });
 
     }
+
+
 }
