@@ -51,22 +51,22 @@
         android:hint="Password"
         android:inputType="textPassword" />
 
-    <EditText
-        android:id="@+id/etLock"
-        android:layout_width="351dp"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/etPassword"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="25dp"
-        android:ems="10"
-        android:hint="Lock ID"
-        android:inputType="text" />
+    <!--<EditText-->
+        <!--android:id="@+id/etLock"-->
+        <!--android:layout_width="351dp"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_below="@id/etPassword"-->
+        <!--android:layout_centerHorizontal="true"-->
+        <!--android:layout_marginTop="25dp"-->
+        <!--android:ems="10"-->
+        <!--android:hint="Lock ID"-->
+        <!--android:inputType="text" />-->
 
     <Button
         android:id="@+id/bRegister"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/etLock"
+        android:layout_below="@id/etPassword"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="25dp"
         android:ems="10"

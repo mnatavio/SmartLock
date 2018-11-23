@@ -62,11 +62,20 @@ public class LogInActivity extends AppCompatActivity
             username = email.getText().toString();
             pass = password.getText().toString();
 
-            String data = "{\"email\":\""+username+ "\",\"password\":\"" +pass+ "\"}";
+                JSONObject object = new JSONObject();
+                try {
+                    object.put("email", username);
+                    object.put("password",pass);
 
-            new PostAsyncTask().execute(data);
+                }catch (JSONException e)
+                {
+                    e.printStackTrace();
+                }
+
+            new PostAsyncTask().execute(object.toString());
             }
         });
+
 
         // register link goes to register page
         regLink.setOnClickListener(new View.OnClickListener() {
