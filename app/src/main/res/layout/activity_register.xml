@@ -1,92 +1,83 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".RegisterActivity">
+    android:background="@drawable/blue"
+    android:backgroundTint="#1A5276"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:padding="20dp"
+    android:paddingTop="0dp">
+
 
     <EditText
         android:id="@+id/name"
-        android:layout_width="351dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="80dp"
-        android:ems="10"
+        android:layout_margin="10dp"
+        android:padding="15dp"
+        android:background="@drawable/shpemail"
+        android:drawableLeft="@drawable/ic_perm_identity_black_24dp"
+        android:drawablePadding="10dp"
         android:hint="Name"
-        android:inputType="textPersonName" />
-
-    <!--<EditText-->
-        <!--android:id="@+id/etLname"-->
-        <!--android:layout_width="351dp"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_below="@id/etFname"-->
-        <!--android:layout_centerHorizontal="true"-->
-        <!--android:layout_marginTop="25dp"-->
-        <!--android:ems="10"-->
-        <!--android:hint="Last Name"-->
-        <!--android:inputType="textPersonName" />-->
+        android:textColor="@color/white"
+        android:textColorHint="@color/white"
+        android:textColorHighlight="@color/white"/>
 
     <EditText
         android:id="@+id/etUsername"
-        android:layout_width="351dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/name"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="25dp"
-        android:ems="10"
+        android:layout_margin="10dp"
+        android:padding="15dp"
+        android:background="@drawable/shpemail"
+        android:drawableLeft="@drawable/ic_email_black_24dp"
+        android:drawablePadding="10dp"
         android:hint="Email"
-        android:inputType="textEmailAddress" />
+        android:textColor="@color/white"
+        android:textColorHint="@color/white"
+        android:textColorHighlight="@color/white"/>
 
     <EditText
         android:id="@+id/etPassword"
-        android:layout_width="351dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/etUsername"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="25dp"
-        android:ems="10"
+        android:layout_margin="10dp"
+        android:padding="15dp"
+        android:background="@drawable/shpemail"
+        android:drawableLeft="@drawable/ic_lock_black_24dp"
+        android:drawablePadding="10dp"
         android:hint="Password"
-        android:inputType="textPassword" />
-
-    <!--<EditText-->
-        <!--android:id="@+id/etLock"-->
-        <!--android:layout_width="351dp"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_below="@id/etPassword"-->
-        <!--android:layout_centerHorizontal="true"-->
-        <!--android:layout_marginTop="25dp"-->
-        <!--android:ems="10"-->
-        <!--android:hint="Lock ID"-->
-        <!--android:inputType="text" />-->
+        android:textColor="@color/white"
+        android:textColorHint="@color/white"
+        android:textColorHighlight="@color/white"/>
 
     <Button
         android:id="@+id/bRegister"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Sign Up"
+        android:shadowColor="@android:color/transparent"
+        android:padding="15dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="25dp"
+        android:background="@drawable/shpreg"
+        android:textColor="@color/white"/>
+
+    <TextView
+        android:id="@+id/account"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/etPassword"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="25dp"
-        android:ems="10"
-        android:text="Register Account"
-        android:textSize="20sp"
-        android:textColor="#000000"
-        android:textStyle="bold"/>
-
-    <!--<TextView-->
-        <!--android:id="@+id/already"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_alignParentBottom="true"-->
-        <!--android:layout_centerHorizontal="true"-->
-        <!--android:layout_marginBottom="82dp"-->
-        <!--android:text="Already have an account"-->
-        <!--android:textColor="#000000"-->
-        <!--android:textSize="12sp"-->
-        <!--android:textStyle="italic" />-->
+        android:text="Already have an account"
+        android:layout_marginRight="10dp"
+        android:layout_marginLeft="10dp"
+        android:textColor="@color/white"/>
 
 
 
-</RelativeLayout>
+</LinearLayout>
+

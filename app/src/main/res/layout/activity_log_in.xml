@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/purple"
-    android:backgroundTint="@color/black"
+    android:backgroundTint="#1A5276"
     android:orientation="vertical"
     android:gravity="center"
     android:padding="20dp">
@@ -14,7 +14,7 @@
         android:layout_marginTop="-45dp"
         android:layout_width="507dp"
         android:layout_height="166dp"
-        android:src="@drawable/logo" />
+        android:src="@drawable/logo_transparent" />
 
     <EditText
         android:id="@+id/etUsername"
@@ -70,14 +70,15 @@
         android:id="@+id/bLog"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Log In"
-        android:shadowColor="@android:color/transparent"
-        android:padding="15dp"
-        android:layout_marginRight="10dp"
-        android:layout_marginLeft="10dp"
         android:layout_marginBottom="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
         android:layout_marginTop="0dp"
-        android:background="@drawable/shplogin"/>
+        android:background="@drawable/shplogin"
+        android:padding="15dp"
+        android:shadowColor="@android:color/transparent"
+        android:text="Log In"
+        android:textColor="@color/black"/>
 
     <Button
         android:id="@+id/bReg"

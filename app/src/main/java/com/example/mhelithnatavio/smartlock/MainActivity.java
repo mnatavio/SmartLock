@@ -1,13 +1,9 @@
 package com.example.mhelithnatavio.smartlock;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.AsyncTask;
-import android.os.Build;
-import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Spinner;
@@ -25,12 +21,11 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
-import java.io.UnsupportedEncodingException;
 import java.io.Writer;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.Base64;
+//import java.util.Base64;
 
 
 
@@ -90,10 +85,6 @@ public class MainActivity extends AppCompatActivity {
         });
 
     }
-
-
-
-
     public class PostAsyncTask extends AsyncTask<String, String, String> {
         @Override
         protected String doInBackground(String... params)
@@ -176,9 +167,7 @@ public class MainActivity extends AppCompatActivity {
 //            if(result == null)
 //                Toast.makeText(MainActivity.this, result, Toast.LENGTH_SHORT).show();
 //            else
-//            byte[] byteValueBase64Decoded = Base64.getDecoder().decode(token);
-//            String stringValueBase64Decoded = new String(byteValueBase64Decoded);
-                tvname.setText(token);
+                tvname.setText(result);
         }
     }
 
