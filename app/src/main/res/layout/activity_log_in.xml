@@ -1,86 +1,98 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/purple"
-    tools:context=".LogInActivity">
+    android:backgroundTint="@color/black"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:padding="20dp">
 
     <ImageView
-        android:id="@+id/logo"
-        android:layout_width="174dp"
-        android:layout_height="158dp"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="83dp"
-        app:srcCompat="@drawable/smartlogo_t" />
+        android:layout_marginTop="-45dp"
+        android:layout_width="507dp"
+        android:layout_height="166dp"
+        android:src="@drawable/logo" />
 
     <EditText
         android:id="@+id/etUsername"
-        android:layout_width="wrap_content"
-        android:layout_height="25dp"
-        android:layout_below="@+id/logo"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="50dp"
-        android:ems="10"
-        android:textSize="20sp"
-        android:background="#11000000"
-        android:inputType="textEmailAddress"
-        android:hint="Email"/>
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:padding="15dp"
+        android:background="@drawable/shpemail"
+        android:drawableLeft="@drawable/ic_perm_identity_black_24dp"
+        android:drawablePadding="10dp"
+        android:hint="Email"
+        android:textColor="@color/white"
+        android:textColorHint="@color/white"
+        android:textColorHighlight="@color/white"/>
 
     <EditText
         android:id="@+id/etPassword"
-        android:layout_width="wrap_content"
-        android:layout_height="25dp"
-        android:layout_alignLeft="@+id/etUsername"
-        android:layout_alignStart="@+id/etUsername"
-        android:layout_below="@id/etUsername"
-        android:layout_marginTop="20dp"
-        android:ems="10"
-        android:textSize="20sp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:padding="15dp"
+        android:background="@drawable/shpemail"
+        android:drawableLeft="@drawable/ic_lock_black_24dp"
+        android:drawablePadding="10dp"
         android:hint="Password"
-        android:background="#11000000"
-        android:inputType="textPassword"/>
+        android:textColor="@color/white"
+        android:textColorHint="@color/white"
+        android:textColorHighlight="@color/white"/>
 
-    <CheckBox
-        android:id="@+id/chShow"
-        android:layout_width="142dp"
-        android:layout_height="22dp"
-        android:layout_alignLeft="@+id/etPassword"
-        android:layout_alignStart="@+id/etPassword"
-        android:layout_below="@id/etPassword"
-        android:layout_marginTop="20dp"
-        android:ems="10"
-        android:text="Show Password"
-        android:textColor="#000000"
-        android:textSize="13sp" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <CheckBox
+            android:id="@+id/chShow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Show Password"
+            android:layout_marginRight="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="0dp"
+            android:textColor="@color/white"
+            android:buttonTint="@color/white"
+            android:checked="true"/>
+
+
+
+    </LinearLayout>
 
     <Button
-        android:id="@+id/bLogin"
-        android:layout_width="161dp"
+        android:id="@+id/bLog"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/chShow"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp"
         android:text="Log In"
-        android:textSize="20sp"
-        android:textColor="#000000"
-        android:textStyle="bold" />
+        android:shadowColor="@android:color/transparent"
+        android:padding="15dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="0dp"
+        android:background="@drawable/shplogin"/>
 
-    <TextView
-        android:id="@+id/tvRegister"
-        android:layout_width="wrap_content"
+    <Button
+        android:id="@+id/bReg"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/bLogin"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="12dp"
-        android:text="Register Here"
-        android:textColor="#000000"
-        android:textStyle="bold" />
+        android:text="Sign Up"
+        android:shadowColor="@android:color/transparent"
+        android:padding="15dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="0dp"
+        android:background="@drawable/shpreg"
+        android:textColor="@color/white"/>
 
 
+</LinearLayout>
 
-
-</RelativeLayout>

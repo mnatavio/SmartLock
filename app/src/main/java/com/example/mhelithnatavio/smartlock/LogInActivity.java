@@ -39,7 +39,7 @@ public class LogInActivity extends AppCompatActivity
     private EditText password;
     private Button bLogin;
     private CheckBox chShow;
-    private TextView regLink;
+    private TextView bReg;
 
     String username;
     String pass;
@@ -52,9 +52,9 @@ public class LogInActivity extends AppCompatActivity
 
         email = (EditText) findViewById(R.id.etUsername);
         password = (EditText) findViewById(R.id.etPassword);
-        bLogin = (Button) findViewById(R.id.bLogin);
+        bLogin = (Button) findViewById(R.id.bLog);
         chShow = (CheckBox) findViewById(R.id.chShow);
-        regLink = (TextView) findViewById(R.id.tvRegister);
+        bReg = (TextView) findViewById(R.id.bReg);
 
         bLogin.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -78,7 +78,7 @@ public class LogInActivity extends AppCompatActivity
 
 
         // register link goes to register page
-        regLink.setOnClickListener(new View.OnClickListener() {
+        bReg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(LogInActivity.this, RegisterActivity.class);
@@ -115,7 +115,7 @@ public class LogInActivity extends AppCompatActivity
                 urlConnection = (HttpURLConnection) url.openConnection();
                 urlConnection.setDoOutput(true);
 
-                // is output buffer writter
+                // is output buffer writer
                 urlConnection.setRequestMethod("POST");
                 urlConnection.setRequestProperty("Content-Type", "application/json");
                 urlConnection.setRequestProperty("Accept", "application/json");
@@ -146,17 +146,17 @@ public class LogInActivity extends AppCompatActivity
                     }
                     else {
                         // convert buffer to string
-                        JsonResponse = buffer.toString();
-                        JSONObject myJson = new JSONObject(JsonResponse);
-                        // use myJson as needed, for example
-                        String lock = myJson.optString("locks");
-                        int id = myJson.optInt("_id");
-                        String name = myJson.optString("name");
-                        String email = myJson.optString("email");
-                        String password = myJson.optString("password");
-                        int v = myJson.optInt("__v");
-
-                        return lock + "\n" + id  + "\n" + name + "\n" + email;
+                        return JsonResponse = buffer.toString();
+//                        JSONObject myJson = new JSONObject(JsonResponse);
+//                        // use myJson as needed, for example
+//                        String lock = myJson.optString("locks");
+//                        int id = myJson.optInt("_id");
+//                        String name = myJson.optString("name");
+//                        String email = myJson.optString("email");
+//                        String password = myJson.optString("password");
+//                        int v = myJson.optInt("__v");
+//
+//                        return lock + "\n" + id  + "\n" + name + "\n" + email;
                     }
                 } else {
                     return urlConnection.getResponseMessage();
@@ -166,8 +166,6 @@ public class LogInActivity extends AppCompatActivity
             } catch (MalformedURLException e) {
                 e.printStackTrace();
             } catch (IOException e) {
-                e.printStackTrace();
-            } catch (JSONException e) {
                 e.printStackTrace();
             } finally {
                 if (urlConnection != null) {
@@ -192,13 +190,13 @@ public class LogInActivity extends AppCompatActivity
             if (result == null) {
                 Toast.makeText(LogInActivity.this, "Invalid email or password.", Toast.LENGTH_SHORT).show();
             } else {
-                String[] logInfo = result.split("\n");
+//                String[] logInfo = result.split("\n");
 
                 Intent login = new Intent(getApplicationContext(), MainActivity.class);
-                login.putExtra("lock", logInfo[0]);
-                login.putExtra("id", logInfo[1]);
-                login.putExtra("name", logInfo[2]);
-                login.putExtra("email", logInfo[3]);
+                login.putExtra("token", result);
+//                login.putExtra("id", logInfo[1]);
+//                login.putExtra("name", logInfo[2]);
+//                login.putExtra("email", logInfo[3]);
 
                 LogInActivity.this.startActivity(login);
             }
