@@ -45,7 +45,6 @@ public class RegisterActivity extends AppCompatActivity {
         etname = (EditText) findViewById(R.id.name);
         etemail = (EditText) findViewById(R.id.etUsername);
         etpassword = (EditText) findViewById(R.id.etPassword);
-//        etlock = (EditText) findViewById(R.id.etLock);
         bReg = (Button) findViewById(R.id.bRegister);
 
         bReg.setOnClickListener(new View.OnClickListener() {
@@ -54,7 +53,6 @@ public class RegisterActivity extends AppCompatActivity {
                 name = etname.getText().toString();
                 email = etemail.getText().toString();
                 password = etpassword.getText().toString();
-//                lock = etlock.getText().toString();
 
                 if (name.isEmpty() || email.isEmpty() || password.isEmpty())
                     Toast.makeText(RegisterActivity.this, "Oops, you forgot to fill in some fields", Toast.LENGTH_SHORT).show();

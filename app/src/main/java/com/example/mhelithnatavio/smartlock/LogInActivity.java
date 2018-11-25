@@ -149,14 +149,14 @@ public class LogInActivity extends AppCompatActivity
                         JsonResponse = buffer.toString();
                         JSONObject myJson = new JSONObject(JsonResponse);
                         // use myJson as needed, for example
-                        String locks = myJson.optString("locks");
+                        String lock = myJson.optString("locks");
                         int id = myJson.optInt("_id");
                         String name = myJson.optString("name");
                         String email = myJson.optString("email");
                         String password = myJson.optString("password");
                         int v = myJson.optInt("__v");
 
-                        return name + "\n" + email;
+                        return lock + "\n" + id  + "\n" + name + "\n" + email;
                     }
                 } else {
                     return urlConnection.getResponseMessage();
@@ -195,8 +195,10 @@ public class LogInActivity extends AppCompatActivity
                 String[] logInfo = result.split("\n");
 
                 Intent login = new Intent(getApplicationContext(), MainActivity.class);
-                login.putExtra("name", logInfo[0]);
-                login.putExtra("email", logInfo[1]);
+                login.putExtra("lock", logInfo[0]);
+                login.putExtra("id", logInfo[1]);
+                login.putExtra("name", logInfo[2]);
+                login.putExtra("email", logInfo[3]);
 
                 LogInActivity.this.startActivity(login);
             }

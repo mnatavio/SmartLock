@@ -23,44 +23,31 @@
 
     <ImageView
         android:id="@+id/m_logo"
-        android:layout_width="174dp"
-        android:layout_height="158dp"
-        android:layout_below="@id/tvLogout"
+        android:layout_width="102dp"
+        android:layout_height="107dp"
+        android:layout_alignTop="@+id/tvLogout"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="30dp"
         app:srcCompat="@drawable/smartlogo_t" />
 
-    <!--<ToggleButton-->
-        <!--android:id="@+id/lockUnLtoggle"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_below="@id/m_logo"-->
-        <!--android:layout_centerHorizontal="true"-->
-        <!--android:layout_marginTop="30dp"-->
-        <!--android:textOff="UnLock"-->
-        <!--android:textOn="Lock"-->
-        <!--android:textSize="30sp"-->
-        <!--android:textStyle="bold" />-->
+    <TextView
+        android:id="@+id/name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="140dp"
+        android:text="eh"
+        android:textSize="35sp"
+        android:textStyle="bold" />
 
     <Button
-        android:id="@+id/btnHit"
+        android:id="@+id/btnSwitch"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/m_logo"
-        android:layout_marginTop="20dp"
-        android:layout_centerHorizontal="true" />
-
-
-    <TextView
-        android:id="@+id/etStatus"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/btnHit"
+        android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="30dp"
-        android:text="Status"
-        android:textSize="30sp"/>
-
+        android:layout_marginTop="211dp"
+        android:text="Button" />
 
 
 </RelativeLayout>
