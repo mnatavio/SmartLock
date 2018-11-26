@@ -31,9 +31,12 @@ import java.net.URL;
 public class MainActivity extends AppCompatActivity {
     private TextView logOut;
     private TextView tvname;
+    private TextView tvemail;
     private Button btn;
     String token;
     String[] splitToken;
+    String userId;
+
 
     // from get
     String gLock, gId, gName, gEmail, gPassword;
@@ -45,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        new GetAsyncTask().execute("https://sdsmartlock.com/api/users/5be9c7764fe9ac33a3e2f685");
+//        new GetAsyncTask().execute("https://sdsmartlock.com/api/users/5be9c7764fe9ac33a3e2f685");
         // save all information from when users logs in
         Intent info = getIntent();
         token = info.getStringExtra("token");
@@ -53,10 +56,14 @@ public class MainActivity extends AppCompatActivity {
 
 
         tvname = (TextView) findViewById(R.id.name);
+        tvemail = (TextView) findViewById(R.id.email);
+
         try {
-//            tvname.setText(decode(splitToken[1]));
-            decode(splitToken[1]);
+            userId = decode(splitToken[1]);
+            new GetAsyncTask().execute("https://sdsmartlock.com/api/users/"+userId);
         } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        } catch (JSONException e) {
             e.printStackTrace();
         }
 
@@ -92,9 +99,13 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    private static String decode(String strEncoded) throws UnsupportedEncodingException {
+    private static String decode(String strEncoded) throws UnsupportedEncodingException, JSONException {
         byte[] decodedBytes = Base64.decode(strEncoded, Base64.URL_SAFE);
-        return new String(decodedBytes, "UTF-8");
+        String res = new String(decodedBytes, "UTF-8");
+        JSONObject jObj = new JSONObject(res);
+        String lock = jObj.optString("_id");
+        int ait = jObj.optInt("ait");
+        return lock;
     }
 
 
@@ -121,15 +132,25 @@ public class MainActivity extends AppCompatActivity {
                 {
                     buffer.append(line);
                 }
-                return buffer.toString();
-
+                buffer.toString();
+                JSONObject myJson = new JSONObject(buffer.toString());
+                // use myJson as needed, for example
+                gLock = myJson.optString("locks");
+                gId = myJson.optString("_id");
+                gName = myJson.optString("name");
+                gEmail = myJson.optString("email");
+                gPassword = myJson.optString("password");
+                gV = myJson.optInt("__v");
+                return gName + "\n" + gEmail;
 
 
             } catch (MalformedURLException e) {
                 e.printStackTrace();
             } catch (IOException e) {
                 e.printStackTrace();
-            }finally {
+            } catch (JSONException e) {
+                e.printStackTrace();
+            } finally {
                 if(con != null){
                     con.disconnect();
                 }
@@ -148,7 +169,9 @@ public class MainActivity extends AppCompatActivity {
         protected void onPostExecute(String result)
         {
             super.onPostExecute(result);
-            tvname.setText(result);
+            String[] res = result.split("\n");
+            tvname.setText(res[0]);
+            tvemail.setText(res[1]);
         }
     }
 
