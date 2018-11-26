@@ -38,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
     String token;
     String[] splitToken;
     String userId;
-    String status = "false";
+    String status = null;
 
 
     // from get
@@ -75,6 +75,9 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String id = "5bd603af9dfa7d068ceb70dd";
+                if (status == null || status == "true")
+                    status = "false";
+                else status = "true";
 
                 JSONObject object = new JSONObject();
                 try {
@@ -274,20 +277,14 @@ public class MainActivity extends AppCompatActivity {
             super.onPostExecute(result);
             String stat;
             String[] res = result.split("\n");
+            tvname.setText(status);
+            tvemail.setText(res[1]);
 
-            // Do something with result
-            if(res[1] == "false")
-                stat = "UNLOCK";
-            else stat = "LOCK";
-
-            Toast toast = Toast.makeText(MainActivity.this, "door is " +stat+ "ed by "+gName+" at "+res[0], Toast.LENGTH_SHORT);
+            Toast toast = Toast.makeText(MainActivity.this, "door is " +res[1]+ "ed by "+gName+" at "+res[0], Toast.LENGTH_SHORT);
             TextView v = (TextView) toast.getView().findViewById(android.R.id.message);
             if( v != null) v.setGravity(Gravity.CENTER);
             toast.show();
 
-            if (status == "false")
-                status = "true";
-            else status = "false";
 
         }
     }

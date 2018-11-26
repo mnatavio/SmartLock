@@ -67,10 +67,12 @@
         android:layout_height="wrap_content"
         android:shadowColor="@android:color/transparent"
         android:padding="15dp"
+        android:textOff="LOCK"
+        android:textOn="UNLOCK"
         android:layout_marginRight="10dp"
         android:layout_marginLeft="10dp"
         android:layout_marginBottom="50dp"
-        android:layout_marginTop="180dp"
+        android:layout_marginTop="10dp"
         android:background="@drawable/shpreg"
         android:textColor="@color/white"/>
 
