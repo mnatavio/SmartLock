@@ -5,9 +5,11 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Base64;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -36,6 +38,7 @@ public class MainActivity extends AppCompatActivity {
     String token;
     String[] splitToken;
     String userId;
+    String status = "false";
 
 
     // from get
@@ -76,12 +79,12 @@ public class MainActivity extends AppCompatActivity {
                 JSONObject object = new JSONObject();
                 try {
                     object.put("lockid", id);
-                    object.put("userid", id);
-                    object.put("status", "false");
+                    object.put("userid", userId);
+                    object.put("status", status);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-//                new PostAsyncTask().execute(object.toString());
+                new PostAsyncTask().execute(object.toString());
 
             }
         });
@@ -228,8 +231,15 @@ public class MainActivity extends AppCompatActivity {
                         return null;
                     } else {
                         // convert buffer to string
-//                        return "data here"
-                        return JsonResponse = buffer.toString();
+                        JSONObject myJson = new JSONObject(buffer.toString());
+                       String id = myJson.optString("_id");
+                       String lockid = myJson.optString("lockid");
+                       String userid = myJson.optString("userid");
+                       String date = myJson.optString("date");
+                       String status = myJson.getString("status");
+                       int v = myJson.getInt("__v");
+
+                        return date + "\n" + status;
                     }
                 } else {
                     return null;
@@ -239,6 +249,8 @@ public class MainActivity extends AppCompatActivity {
             } catch (MalformedURLException e) {
                 e.printStackTrace();
             } catch (IOException e) {
+                e.printStackTrace();
+            } catch (JSONException e) {
                 e.printStackTrace();
             } finally {
                 if (urlConnection != null) {
@@ -260,11 +272,23 @@ public class MainActivity extends AppCompatActivity {
         protected void onPostExecute(String result)
         {
             super.onPostExecute(result);
-//            Do something with result
-//            if(result == null)
-//                Toast.makeText(MainActivity.this, result, Toast.LENGTH_SHORT).show();
-//            else
-                tvname.setText(result);
+            String stat;
+            String[] res = result.split("\n");
+
+            // Do something with result
+            if(res[1] == "false")
+                stat = "UNLOCK";
+            else stat = "LOCK";
+
+            Toast toast = Toast.makeText(MainActivity.this, "door is " +stat+ "ed by "+gName+" at "+res[0], Toast.LENGTH_SHORT);
+            TextView v = (TextView) toast.getView().findViewById(android.R.id.message);
+            if( v != null) v.setGravity(Gravity.CENTER);
+            toast.show();
+
+            if (status == "false")
+                status = "true";
+            else status = "false";
+
         }
     }
 
