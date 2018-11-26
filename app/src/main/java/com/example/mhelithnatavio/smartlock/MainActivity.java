@@ -35,26 +35,27 @@ public class MainActivity extends AppCompatActivity {
     String token;
     String[] splitToken;
 
+    // from get
+    String gLock, gId, gName, gEmail, gPassword;
+    int gV;
+
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
+        new GetAsyncTask().execute("https://sdsmartlock.com/api/users/5be9c7764fe9ac33a3e2f685");
         // save all information from when users logs in
         Intent info = getIntent();
-//        String lock = info.getStringExtra("lock");
-//        String id = info.getStringExtra("id");
-//        String name = info.getStringExtra("name");
-//        String email = info.getStringExtra("email");
         token = info.getStringExtra("token");
         splitToken = token.split("\\.");
 
 
         tvname = (TextView) findViewById(R.id.name);
         try {
-            tvname.setText(decode(splitToken[1]));
+//            tvname.setText(decode(splitToken[1]));
+            decode(splitToken[1]);
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
@@ -73,7 +74,7 @@ public class MainActivity extends AppCompatActivity {
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-                new PostAsyncTask().execute(object.toString());
+//                new PostAsyncTask().execute(object.toString());
 
             }
         });
@@ -98,7 +99,58 @@ public class MainActivity extends AppCompatActivity {
 
 
 
+    public class GetAsyncTask extends AsyncTask<String, String, String>{
 
+        @Override
+        protected String doInBackground(String... params) {
+            HttpURLConnection con = null;
+            BufferedReader reader = null;
+            String jsonRes = null;
+
+            try {
+                URL url = new URL(params[0]);
+                con = (HttpURLConnection) url.openConnection();
+                con.connect();
+
+                InputStream stream = con.getInputStream();
+                reader = new BufferedReader(new InputStreamReader(stream));
+                StringBuffer buffer = new StringBuffer();
+
+                String line = "";
+                while ((line = reader.readLine()) != null)
+                {
+                    buffer.append(line);
+                }
+                return buffer.toString();
+
+
+
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }finally {
+                if(con != null){
+                    con.disconnect();
+                }
+                try {
+                    if (reader != null){
+                        reader.close();
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(String result)
+        {
+            super.onPostExecute(result);
+            tvname.setText(result);
+        }
+    }
 
 
 
