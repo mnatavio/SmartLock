@@ -2,16 +2,13 @@ package com.example.mhelithnatavio.smartlock;
 
 import android.content.Intent;
 import android.os.AsyncTask;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.util.Base64;
 import android.view.View;
 import android.widget.Button;
-import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
-import android.widget.ToggleButton;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -21,6 +18,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
+import java.io.UnsupportedEncodingException;
 import java.io.Writer;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
@@ -35,6 +33,7 @@ public class MainActivity extends AppCompatActivity {
     private TextView tvname;
     private Button btn;
     String token;
+    String[] splitToken;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -50,9 +49,15 @@ public class MainActivity extends AppCompatActivity {
 //        String name = info.getStringExtra("name");
 //        String email = info.getStringExtra("email");
         token = info.getStringExtra("token");
+        splitToken = token.split("\\.");
+
 
         tvname = (TextView) findViewById(R.id.name);
-//        tvname.setText(token);
+        try {
+            tvname.setText(decode(splitToken[1]));
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
 
         btn = (Button) findViewById(R.id.btnSwitch);
         btn.setOnClickListener(new View.OnClickListener() {
@@ -83,8 +88,25 @@ public class MainActivity extends AppCompatActivity {
                 MainActivity.this.startActivity(logoutIntent);
             }
         });
-
     }
+
+
+    private static String decode(String strEncoded) throws UnsupportedEncodingException {
+        byte[] decodedBytes = Base64.decode(strEncoded, Base64.URL_SAFE);
+        return new String(decodedBytes, "UTF-8");
+    }
+
+
+
+
+
+
+
+
+
+
+
+
     public class PostAsyncTask extends AsyncTask<String, String, String> {
         @Override
         protected String doInBackground(String... params)

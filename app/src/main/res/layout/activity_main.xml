@@ -1,53 +1,134 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/purple"
-    tools:context=".MainActivity">
+    android:background="@drawable/blue"
+    android:backgroundTint="#1A5276"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:paddingLeft="20dp"
+    android:paddingRight="20dp"
+    android:paddingTop="0dp">
 
     <TextView
         android:id="@+id/tvLogout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginEnd="17dp"
-        android:layout_marginRight="17dp"
-        android:layout_marginTop="21dp"
+        android:layout_marginLeft="130dp"
+        android:layout_marginTop="0dp"
         android:text="Sign Out"
-        android:textSize="20sp"/>
+        android:textSize="15sp"
+        android:textStyle="bold"
+        android:textColor="@color/white"/>
 
     <ImageView
-        android:id="@+id/m_logo"
-        android:layout_width="102dp"
-        android:layout_height="107dp"
-        android:layout_alignTop="@+id/tvLogout"
-        android:layout_centerHorizontal="true"
-        app:srcCompat="@drawable/smartlogo_t" />
+        android:layout_width="507dp"
+        android:layout_height="166dp"
+        android:layout_marginTop="-45dp"
+        android:paddingTop="20dp"
+        android:src="@drawable/logo_transparent" />
 
     <TextView
         android:id="@+id/name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="140dp"
-        android:text="eh"
-        android:textSize="35sp"
-        android:textStyle="bold" />
+        android:background="@drawable/shpemail"
+        android:text="UserName"
+        android:shadowColor="@android:color/transparent"
+        android:padding="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginBottom="4dp"
+        android:layout_marginTop="4dp"
+        android:textColor="@color/white"/>
 
-    <Button
-        android:id="@+id/btnSwitch"
+    <TextView
+        android:id="@+id/email"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="211dp"
-        android:text="Button" />
+        android:background="@drawable/shpemail"
+        android:text="Email"
+        android:shadowColor="@android:color/transparent"
+        android:padding="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginBottom="4dp"
+        android:layout_marginTop="4dp"
+        android:textColor="@color/white"/>
 
 
-</RelativeLayout>
+    <ToggleButton
+        android:id="@+id/btnSwitch"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:shadowColor="@android:color/transparent"
+        android:padding="15dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginBottom="50dp"
+        android:layout_marginTop="180dp"
+        android:background="@drawable/shpreg"
+        android:textColor="@color/white"/>
+
+
+</LinearLayout>
+
+
+
+
+
+    <!--<?xml version="1.0" encoding="utf-8"?>-->
+<!--<RelativeLayout-->
+    <!--xmlns:android="http://schemas.android.com/apk/res/android"-->
+    <!--xmlns:app="http://schemas.android.com/apk/res-auto"-->
+    <!--xmlns:tools="http://schemas.android.com/tools"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent"-->
+    <!--android:background="@drawable/purple"-->
+    <!--tools:context=".MainActivity">-->
+
+    <!--<TextView-->
+        <!--android:id="@+id/tvLogout"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_alignParentEnd="true"-->
+        <!--android:layout_alignParentRight="true"-->
+        <!--android:layout_alignParentTop="true"-->
+        <!--android:layout_marginEnd="17dp"-->
+        <!--android:layout_marginRight="17dp"-->
+        <!--android:layout_marginTop="21dp"-->
+        <!--android:text="Sign Out"-->
+        <!--android:textSize="20sp"/>-->
+
+    <!--<ImageView-->
+        <!--android:id="@+id/m_logo"-->
+        <!--android:layout_width="102dp"-->
+        <!--android:layout_height="107dp"-->
+        <!--android:layout_alignTop="@+id/tvLogout"-->
+        <!--android:layout_centerHorizontal="true"-->
+        <!--app:srcCompat="@drawable/smartlogo_t" />-->
+
+    <!--<TextView-->
+        <!--android:id="@+id/name"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_alignParentTop="true"-->
+        <!--android:layout_centerHorizontal="true"-->
+        <!--android:layout_marginTop="140dp"-->
+        <!--android:text="eh"-->
+        <!--android:textSize="35sp"-->
+        <!--android:textStyle="bold" />-->
+
+    <!--<Button-->
+        <!--android:id="@+id/btnSwitch"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_alignParentTop="true"-->
+        <!--android:layout_centerHorizontal="true"-->
+        <!--android:layout_marginTop="211dp"-->
+        <!--android:text="Button" />-->
+
+
+<!--</RelativeLayout>-->
