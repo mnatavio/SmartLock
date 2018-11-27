@@ -3,11 +3,14 @@ package com.example.mhelithnatavio.smartlock;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Base64;
 import android.view.Gravity;
 import android.view.View;
+import android.widget.Button;
 import android.widget.CompoundButton;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
@@ -40,6 +43,7 @@ public class MainActivity extends AppCompatActivity {
     String[] splitToken;
     String userId;
     String status = null;
+    String[] locks;
 
 
     // from get
@@ -69,6 +73,34 @@ public class MainActivity extends AppCompatActivity {
         tvemail = (TextView) findViewById(R.id.email);
 
 //        TODO: needs to ask user to input locks (maybe spinner)
+        Button addLock = (Button) findViewById(R.id.addlock);
+        addLock.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder lockBuilder = new AlertDialog.Builder(MainActivity.this);
+                View lockView = getLayoutInflater().inflate(R.layout.lock_dialog, null);
+                final EditText lockDialog = (EditText) lockView.findViewById(R.id.LockId);
+                Button addLock = (Button) lockView.findViewById(R.id.add);
+                lockBuilder.setView(lockView);
+                final AlertDialog dialog = lockBuilder.create();
+                dialog.show();
+                addLock.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if(lockDialog.getText().toString().isEmpty()) {
+                            Toast.makeText(MainActivity.this,
+                                    "LockID can't be empty", Toast.LENGTH_SHORT).show();
+                        }
+                        else{
+
+                        }
+
+                    }
+                });
+
+
+            }
+        });
 
         // when button is clicked: take status of the lock
         // post to server

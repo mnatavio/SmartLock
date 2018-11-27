@@ -18,6 +18,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="130dp"
         android:layout_marginTop="0dp"
+        android:layout_marginBottom="90dp"
         android:text="Sign Out"
         android:textSize="15sp"
         android:textStyle="bold"
@@ -26,9 +27,7 @@
     <ImageView
         android:layout_width="507dp"
         android:layout_height="166dp"
-        android:layout_marginTop="-45dp"
-        android:paddingTop="20dp"
-        android:src="@drawable/logo_transparent" />
+        android:src="@drawable/logo_transparent"/>
 
     <TextView
         android:id="@+id/name"
@@ -61,6 +60,24 @@
         android:layout_marginBottom="4dp"
         android:layout_marginTop="4dp"
         android:textColor="@color/white"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="right">
+
+
+
+        <Button
+            android:id="@+id/addlock"
+            android:layout_width="49dp"
+            android:layout_height="wrap_content"
+            android:drawableLeft="@drawable/ic_lock_black_24dp"
+            />
+
+
+    </LinearLayout>
 
 
     <ToggleButton
