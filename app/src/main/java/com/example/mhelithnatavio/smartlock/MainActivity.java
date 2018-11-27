@@ -51,29 +51,31 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-//        new GetAsyncTask().execute("https://sdsmartlock.com/api/users/5be9c7764fe9ac33a3e2f685");
-        // save all information from when users logs in
+        // save token from login, split, decode, get user info from decoded userid
         Intent info = getIntent();
         token = info.getStringExtra("token");
         splitToken = token.split("\\.");
-
-
-        tvname = (TextView) findViewById(R.id.name);
-        tvemail = (TextView) findViewById(R.id.email);
-
         try {
             userId = decode(splitToken[1]);
-            new GetAsyncTask().execute("https://sdsmartlock.com/api/users/"+userId);
+            new GetUserInfo().execute("https://sdsmartlock.com/api/users/"+userId);
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         } catch (JSONException e) {
             e.printStackTrace();
         }
+        // initialize name and mail textview
+        tvname = (TextView) findViewById(R.id.name);
+        tvemail = (TextView) findViewById(R.id.email);
 
+//        TODO: needs to ask user to input locks (maybe spinner)
+
+        // when button is clicked: take status of the lock
+        // post to server
         btn = (Button) findViewById(R.id.btnSwitch);
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                new GetLockStatus().execute("https://sdsmartlock.com/api/locks/5bd603af9dfa7d068ceb70dd");
                 String id = "5bd603af9dfa7d068ceb70dd";
                 if (status == null || status == "true")
                     status = "false";
@@ -92,7 +94,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-
+        // logout button
         logOut = (TextView) findViewById(R.id.tvLogout);
         logOut.setOnClickListener(new View.OnClickListener()
         {
@@ -104,7 +106,7 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-
+    // decodes and parses decoded string
     private static String decode(String strEncoded) throws UnsupportedEncodingException, JSONException {
         byte[] decodedBytes = Base64.decode(strEncoded, Base64.URL_SAFE);
         String res = new String(decodedBytes, "UTF-8");
@@ -115,8 +117,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-
-    public class GetAsyncTask extends AsyncTask<String, String, String>{
+    // function to get user's name and email
+    // display to screen
+    public class GetUserInfo extends AsyncTask<String, String, String>{
 
         @Override
         protected String doInBackground(String... params) {
@@ -140,13 +143,8 @@ public class MainActivity extends AppCompatActivity {
                 }
                 buffer.toString();
                 JSONObject myJson = new JSONObject(buffer.toString());
-                // use myJson as needed, for example
-                gLock = myJson.optString("locks");
-                gId = myJson.optString("_id");
                 gName = myJson.optString("name");
                 gEmail = myJson.optString("email");
-                gPassword = myJson.optString("password");
-                gV = myJson.optInt("__v");
                 return gName + "\n" + gEmail;
 
 
@@ -181,13 +179,69 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    // get Lock Status
+    public class GetLockStatus extends AsyncTask<String, String, String>{
+
+        @Override
+        protected String doInBackground(String... params) {
+            HttpURLConnection con = null;
+            BufferedReader reader = null;
+            String jsonRes = null;
+
+            try {
+                URL url = new URL(params[0]);
+                con = (HttpURLConnection) url.openConnection();
+                con.connect();
+
+                InputStream stream = con.getInputStream();
+                reader = new BufferedReader(new InputStreamReader(stream));
+                StringBuffer buffer = new StringBuffer();
+
+                String line = "";
+                while ((line = reader.readLine()) != null)
+                {
+                    buffer.append(line);
+                }
+                buffer.toString();
+                JSONObject myJson = new JSONObject(buffer.toString());
+                status = myJson.optString("status");
+                return null;
+
+
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            } catch (JSONException e) {
+                e.printStackTrace();
+            } finally {
+                if(con != null){
+                    con.disconnect();
+                }
+                try {
+                    if (reader != null){
+                        reader.close();
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(String result)
+        {
+            super.onPostExecute(result);
+        }
+    }
 
 
 
 
 
 
-
+    // post to server: changing status lock
     public class PostAsyncTask extends AsyncTask<String, String, String> {
         @Override
         protected String doInBackground(String... params)
@@ -234,15 +288,10 @@ public class MainActivity extends AppCompatActivity {
                         return null;
                     } else {
                         // convert buffer to string
-                        JSONObject myJson = new JSONObject(buffer.toString());
-                       String id = myJson.optString("_id");
-                       String lockid = myJson.optString("lockid");
-                       String userid = myJson.optString("userid");
-                       String date = myJson.optString("date");
-                       String status = myJson.getString("status");
-                       int v = myJson.getInt("__v");
-
-                        return date + "\n" + status;
+                            JSONObject myJson = new JSONObject(buffer.toString());
+                            String date = myJson.optString("date");
+                            String status = myJson.getString("status");
+                            return date + "\n" + status;
                     }
                 } else {
                     return null;
@@ -277,10 +326,9 @@ public class MainActivity extends AppCompatActivity {
             super.onPostExecute(result);
             String stat;
             String[] res = result.split("\n");
-            tvname.setText(status);
-            tvemail.setText(res[1]);
 
-            Toast toast = Toast.makeText(MainActivity.this, "door is " +res[1]+ "ed by "+gName+" at "+res[0], Toast.LENGTH_SHORT);
+//            TODO: need to change false/true to unlock/lock on display
+            Toast toast = Toast.makeText(MainActivity.this, "door is " +res[1]+ " by "+gName+" at "+res[0], Toast.LENGTH_SHORT);
             TextView v = (TextView) toast.getView().findViewById(android.R.id.message);
             if( v != null) v.setGravity(Gravity.CENTER);
             toast.show();
