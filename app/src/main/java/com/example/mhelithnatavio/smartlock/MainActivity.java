@@ -8,13 +8,16 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Base64;
 import android.view.Gravity;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -29,6 +32,8 @@ import java.io.Writer;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 //import java.util.Base64;
 
 
@@ -43,7 +48,8 @@ public class MainActivity extends AppCompatActivity {
     String[] splitToken;
     String userId;
     String status = null;
-    String[] locks;
+//    String[] locks;
+    List<String> locks = new ArrayList<String>();
 
 
     // from get
@@ -73,6 +79,14 @@ public class MainActivity extends AppCompatActivity {
         tvemail = (TextView) findViewById(R.id.email);
 
 //        TODO: needs to ask user to input locks (maybe spinner)
+
+        Spinner spinner = (Spinner)findViewById(R.id.spinner) ;
+        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this,
+                android.R.layout.simple_spinner_item, locks);
+        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(dataAdapter);
+//        spinner.getSelectedItem().toString();
+
         Button addLock = (Button) findViewById(R.id.addlock);
         addLock.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -80,12 +94,12 @@ public class MainActivity extends AppCompatActivity {
                 AlertDialog.Builder lockBuilder = new AlertDialog.Builder(MainActivity.this);
                 View lockView = getLayoutInflater().inflate(R.layout.lock_dialog, null);
                 final EditText lockDialog = (EditText) lockView.findViewById(R.id.LockId);
-                Button addLock = (Button) lockView.findViewById(R.id.add);
+                Button add = (Button) lockView.findViewById(R.id.add);
                 Button cancel = (Button) lockView.findViewById(R.id.cancel);
                 lockBuilder.setView(lockView);
                 final AlertDialog dialog = lockBuilder.create();
                 dialog.show();
-                addLock.setOnClickListener(new View.OnClickListener() {
+                add.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         if(lockDialog.getText().toString().isEmpty()) {
@@ -93,8 +107,7 @@ public class MainActivity extends AppCompatActivity {
                                     "LockID can't be empty", Toast.LENGTH_SHORT).show();
                         }
                         else{
-                           
-
+//                            locks.add(lockDialog.getText().toString());
                         }
 
                     }
@@ -109,6 +122,8 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+
+
 
         // when button is clicked: take status of the lock
         // post to server
@@ -132,7 +147,7 @@ public class MainActivity extends AppCompatActivity {
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-                new PostAsyncTask().execute(object.toString());
+                new PostAsyncTask().execute("https://sdsmartlock.com/api/events", object.toString());
             }
         });
 
@@ -187,6 +202,14 @@ public class MainActivity extends AppCompatActivity {
                 JSONObject myJson = new JSONObject(buffer.toString());
                 gName = myJson.optString("name");
                 gEmail = myJson.optString("email");
+                JSONArray jsonArray = myJson.getJSONArray("locks");
+
+                for(int i = 0; i < jsonArray.length(); i++)
+                {
+
+                    locks.add(jsonArray.getString(i));
+                }
+
                 return gName + "\n" + gEmail;
 
 
@@ -289,11 +312,11 @@ public class MainActivity extends AppCompatActivity {
         protected String doInBackground(String... params)
         {
             String JsonResponse = null;
-            String JsonDATA = params[0];
+            String JsonDATA = params[1];
             HttpURLConnection urlConnection = null;
             BufferedReader reader = null;
             try {
-                URL url = new URL("https://sdsmartlock.com/api/events");
+                URL url = new URL(params[0]);
                 urlConnection = (HttpURLConnection) url.openConnection();
                 urlConnection.setDoOutput(true);
 
@@ -329,11 +352,12 @@ public class MainActivity extends AppCompatActivity {
                         // Stream is empty. No point in parsing.
                         return null;
                     } else {
+                        return buffer.toString();
                         // convert buffer to string
-                            JSONObject myJson = new JSONObject(buffer.toString());
-                            String date = myJson.optString("date");
-                            String status = myJson.getString("status");
-                            return date + "\n" + status;
+//                            JSONObject myJson = new JSONObject(buffer.toString());
+////                            String date = myJson.optString("date");
+////                            String status = myJson.getString("status");
+////                            return date + "\n" + status;
                     }
                 } else {
                     return null;
@@ -343,8 +367,6 @@ public class MainActivity extends AppCompatActivity {
             } catch (MalformedURLException e) {
                 e.printStackTrace();
             } catch (IOException e) {
-                e.printStackTrace();
-            } catch (JSONException e) {
                 e.printStackTrace();
             } finally {
                 if (urlConnection != null) {
@@ -368,6 +390,7 @@ public class MainActivity extends AppCompatActivity {
             super.onPostExecute(result);
             String stat;
             String[] res = result.split("\n");
+
 
 //            TODO: need to change false/true to unlock/lock on display
             Toast toast = Toast.makeText(MainActivity.this, "door is " +res[1]+ " by "+gName+" at "+res[0], Toast.LENGTH_SHORT);
