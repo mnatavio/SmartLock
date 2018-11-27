@@ -7,9 +7,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Base64;
 import android.view.Gravity;
 import android.view.View;
-import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.ToggleButton;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -34,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
     private TextView logOut;
     private TextView tvname;
     private TextView tvemail;
-    private Button btn;
+    private ToggleButton btn;
     String token;
     String[] splitToken;
     String userId;
@@ -71,26 +72,27 @@ public class MainActivity extends AppCompatActivity {
 
         // when button is clicked: take status of the lock
         // post to server
-        btn = (Button) findViewById(R.id.btnSwitch);
-        btn.setOnClickListener(new View.OnClickListener() {
+        btn = (ToggleButton) findViewById(R.id.btnSwitch);
+        btn.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
-            public void onClick(View v) {
-                new GetLockStatus().execute("https://sdsmartlock.com/api/locks/5bd603af9dfa7d068ceb70dd");
-                String id = "5bd603af9dfa7d068ceb70dd";
-                if (status == null || status == "true")
-                    status = "false";
-                else status = "true";
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+//                new GetLockStatus().execute("https://sdsmartlock.com/api/locks/5bd603af9dfa7d068ceb70dd");
+                String lockid = "5bd603af9dfa7d068ceb70dd";
+                if(isChecked)
+                {
+                    status = "true";
+                }
+                else status = "false";
 
                 JSONObject object = new JSONObject();
                 try {
-                    object.put("lockid", id);
+                    object.put("lockid", lockid);
                     object.put("userid", userId);
                     object.put("status", status);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
                 new PostAsyncTask().execute(object.toString());
-
             }
         });
 
@@ -332,7 +334,6 @@ public class MainActivity extends AppCompatActivity {
             TextView v = (TextView) toast.getView().findViewById(android.R.id.message);
             if( v != null) v.setGravity(Gravity.CENTER);
             toast.show();
-
 
         }
     }
