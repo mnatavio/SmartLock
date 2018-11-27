@@ -81,6 +81,7 @@ public class MainActivity extends AppCompatActivity {
                 View lockView = getLayoutInflater().inflate(R.layout.lock_dialog, null);
                 final EditText lockDialog = (EditText) lockView.findViewById(R.id.LockId);
                 Button addLock = (Button) lockView.findViewById(R.id.add);
+                Button cancel = (Button) lockView.findViewById(R.id.cancel);
                 lockBuilder.setView(lockView);
                 final AlertDialog dialog = lockBuilder.create();
                 dialog.show();
@@ -92,9 +93,16 @@ public class MainActivity extends AppCompatActivity {
                                     "LockID can't be empty", Toast.LENGTH_SHORT).show();
                         }
                         else{
+                           
 
                         }
 
+                    }
+                });
+                cancel.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        dialog.dismiss();
                     }
                 });
 
@@ -238,7 +246,7 @@ public class MainActivity extends AppCompatActivity {
                 }
                 buffer.toString();
                 JSONObject myJson = new JSONObject(buffer.toString());
-                status = myJson.optString("status");
+//                status = myJson.optString("status");
                 return null;
 
 

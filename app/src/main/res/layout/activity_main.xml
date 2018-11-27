@@ -31,12 +31,13 @@
 
     <TextView
         android:id="@+id/name"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/shpemail"
         android:drawableLeft="@drawable/ic_perm_identity_black_24dp"
         android:text="UserName"
         android:textStyle="bold"
+        android:textAlignment="center"
         android:shadowColor="@android:color/transparent"
         android:padding="10dp"
         android:layout_marginRight="10dp"
@@ -47,12 +48,13 @@
 
     <TextView
         android:id="@+id/email"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/shpemail"
         android:drawableLeft="@drawable/ic_email_black_24dp"
         android:text="Email"
         android:textStyle="bold"
+        android:textAlignment="center"
         android:shadowColor="@android:color/transparent"
         android:padding="10dp"
         android:layout_marginRight="10dp"
